@@ -1,0 +1,3 @@
+[submodule "PrayTimes"]
+	path = PrayTimes
+	url = https://github.com/manoedinata/PrayTimes
