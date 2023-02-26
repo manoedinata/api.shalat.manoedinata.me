@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
+from flask_cors import CORS
 
 from PrayTimes.praytimes import PrayTimes
 
@@ -10,6 +11,7 @@ import json
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
+CORS(app)
 prayTimes = PrayTimes()
 
 
