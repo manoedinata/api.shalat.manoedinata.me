@@ -91,9 +91,12 @@ def range_shalat():
         endDate = date.today()
 
     # Hitung selisih
-    # TODO: Support hari mundur (ketika endDate < startDate)
     selisih = endDate - startDate
-    rangeTanggal = [startDate + timedelta(days=x) for x in range(selisih.days + 1)]
+    if selisih.days < 0:
+        rangeTanggal = [startDate + timedelta(days=x) for x in range(selisih.days, 1)]
+        rangeTanggal.reverse()
+    else:
+        rangeTanggal = [startDate + timedelta(days=x) for x in range(selisih.days + 1)]
 
     latitude = request.args.get("lat", None)
     if latitude:
