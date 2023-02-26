@@ -9,12 +9,12 @@ import json
 
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
+prayTimes = PrayTimes()
 
 
 # Fungsi: Mengambil jadwal dari tanggal, latitude, dan longtitude dari user
-def ambil_jadwal(targetDate, latitude, longtitude):
-    prayTimes = PrayTimes()
-    prayTimes.setMethod("Kemenag") # Metode: Kemenag
+def ambil_jadwal(method, targetDate, latitude, longtitude):
+    prayTimes.setMethod(method)
 
     # Offset (menambahkan +2 menit sebagai pengaman)
     # TODO: Cek apakah benar jadwal harus diberi offset
@@ -61,6 +61,10 @@ def shalat_brother():
     else:
         targetDate = date.today()
 
+    method = request.args.get("metode", None)
+    if not method:
+        method = "Kemenag" # Metode: Kemenag
+
     latitude = request.args.get("lat", None)
     if latitude:
         latitude = float(latitude)
@@ -73,7 +77,8 @@ def shalat_brother():
     else:
         longtitude = 111.9
 
-    result = ambil_jadwal(targetDate, latitude, longtitude)
+    result = ambil_jadwal(method, targetDate, latitude, longtitude)
+    result["metode"] = prayTimes.getMethod()
     return jsonify(result)
 
 # Route: Ambil range jadwal Shalat (/range_shalat)
@@ -89,6 +94,10 @@ def range_shalat():
         endDate = datetime.strptime(endDate, "%d-%m-%Y").date()
     else:
         endDate = date.today()
+
+    method = request.args.get("metode", None)
+    if not method:
+        method = "Kemenag" # Metode: Kemenag
 
     # Hitung selisih
     selisih = endDate - startDate
@@ -112,10 +121,11 @@ def range_shalat():
 
     jadwal = []
     for tanggal in rangeTanggal:
-        j = ambil_jadwal(tanggal, latitude, longtitude)
+        j = ambil_jadwal(method, tanggal, latitude, longtitude)
         jadwal.append(j)
 
     result = {
+        "metode": prayTimes.getMethod(),
         "start_tanggal": startDate.strftime("%d-%m-%Y"),
         "end_tanggal": endDate.strftime("%d-%m-%Y"),
         "jadwal": jadwal,
