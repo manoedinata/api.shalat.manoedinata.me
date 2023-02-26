@@ -9,6 +9,7 @@ import json
 
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
+app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 prayTimes = PrayTimes()
 
 
