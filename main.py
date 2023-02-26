@@ -51,7 +51,12 @@ def ambil_jadwal(method, targetDate, latitude, longtitude):
 # Route: Home (/)
 @app.route("/")
 def home():
-    return jsonify(msg="Hello, World!")
+    return jsonify({
+        "message": "Hello, World!",
+        "author": "Hendra Manudinata <manoedinata@gmail.com>",
+        "project_github": "https://github.com/manoedinata/api.shalat.manoedinata.me",
+        "docs": "https://github.com/manoedinata/api.shalat.manoedinata.me",
+    })
 
 # Route: Ambil jadwal Shalat (/shalat)
 @app.route("/shalat")
