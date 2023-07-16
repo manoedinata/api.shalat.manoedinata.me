@@ -1,8 +1,12 @@
-# [WIP] API Jadwal Shalat
+# API Jadwal Shalat
 
 API sederhana untuk mendapatkan jadwal perkiraan waktu shalat, menggunakan:
   - Library [PrayTimes](https://praytimes.org) untuk kalkulasi jadwal
   - [Flask](https://flask.palletsprojects.com) (Python) sebagai _web framework_
+
+## Project Status
+
+Proyek ini tidak lagi aktif dikembangkan. Saya punya rencana untuk berpindah ke framework [FastAPI]([url](https://fastapi.tiangolo.com/)), tapi tidak untuk sekarang. Beri tahu saya jika Anda ingin berkontribusi, jadi kita bisa _collab_!
 
 ## Endpoint
 
